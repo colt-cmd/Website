@@ -1,50 +1,81 @@
 import React, { useState, useEffect } from 'react';
-import './SocialLinks.css';
 
-const SocialLinks = () => {
-  const [github, setGithub] = useState(localStorage.getItem('github') || '');
-  const [linkedin, setLinkedin] = useState(localStorage.getItem('linkedin') || '');
-  const [error, setError] = useState('');
+// Utility function to validate URLs
+const isValidUrl = (url) => {
+  const regex = /^(ftp|http|https):\/\/[^ "]+$/;
+  return regex.test(url);
+};
 
-  const handleSave = () => {
-    const urlPattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
-      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+const SocialLinks = ({ githubUrl, linkedinUrl, isAdmin, onSaveUrls }) => {
+  const [inputGithubUrl, setInputGithubUrl] = useState(githubUrl);
+  const [inputLinkedinUrl, setInputLinkedinUrl] = useState(linkedinUrl);
+  const [errors, setErrors] = useState({ github: '', linkedin: '' });
 
-    if (!urlPattern.test(github) || !urlPattern.test(linkedin)) {
-      setError('Please enter valid URLs');
-      return;
+  const handleSaveUrls = () => {
+    let valid = true;
+    if (!isValidUrl(inputGithubUrl)) {
+      setErrors((prev) => ({ ...prev, github: 'Invalid GitHub URL' }));
+      valid = false;
+    } else {
+      setErrors((prev) => ({ ...prev, github: '' }));
     }
 
-    localStorage.setItem('github', github);
-    localStorage.setItem('linkedin', linkedin);
-    setError('');
+    if (!isValidUrl(inputLinkedinUrl)) {
+      setErrors((prev) => ({ ...prev, linkedin: 'Invalid LinkedIn URL' }));
+      valid = false;
+    } else {
+      setErrors((prev) => ({ ...prev, linkedin: '' }));
+    }
+
+    if (valid) {
+      onSaveUrls(inputGithubUrl, inputLinkedinUrl);
+      alert('URLs saved successfully!');
+    }
   };
 
   return (
-    <div className="social-links">
-      <h2>Connect with me</h2>
-      <input
-        type="text"
-        value={github}
-        onChange={(e) => setGithub(e.target.value)}
-        placeholder="GitHub URL"
-      />
-      <input
-        type="text"
-        value={linkedin}
-        onChange={(e) => setLinkedin(e.target.value)}
-        placeholder="LinkedIn URL"
-      />
-      <button onClick={handleSave}>Save</button>
-      {error && <p>{error}</p>}
-      <div>
-        <a href={github} target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href={linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      </div>
+    <div>
+      <h3>Connect with me</h3>
+      <ul>
+        <li>
+          <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+        </li>
+        <li>
+          <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
+            LinkedIn
+          </a>
+        </li>
+      </ul>
+      {isAdmin && (
+        <div>
+          <h4>Admin: Set Social Links</h4>
+          <div>
+            <label>
+              GitHub URL:
+              <input
+                type="text"
+                value={inputGithubUrl}
+                onChange={(e) => setInputGithubUrl(e.target.value)}
+              />
+            </label>
+            {errors.github && <span style={{ color: 'red' }}>{errors.github}</span>}
+          </div>
+          <div>
+            <label>
+              LinkedIn URL:
+              <input
+                type="text"
+                value={inputLinkedinUrl}
+                onChange={(e) => setInputLinkedinUrl(e.target.value)}
+              />
+            </label>
+            {errors.linkedin && <span style={{ color: 'red' }}>{errors.linkedin}</span>}
+          </div>
+          <button onClick={handleSaveUrls}>Save URLs</button>
+        </div>
+      )}
     </div>
   );
 };
