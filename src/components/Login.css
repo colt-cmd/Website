@@ -1,0 +1,28 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .login h2 {
+    margin-bottom: 20px;
+  }
+  
+  .login input {
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 200px;
+  }
+  
+  .login button {
+    padding: 10px;
+    width: 100px;
+    cursor: pointer;
+  }
+  
+  .login p {
+    color: red;
+  }
+  
