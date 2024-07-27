@@ -23,10 +23,10 @@ const ProfilePhoto = () => {
         {photo ? (
           <img src={photo} alt="Profile" className="profile-photo-img" />
         ) : (
-          <div className="photo-placeholder">Upload Photo</div>
+          <div className="photo-placeholder">Profile</div>
         )}
       </label>
-      <input id="photo-upload" type="file" accept="image/*" onChange={handlePhotoChange} />
+      <input id="photo-upload" type="file" accept="image/*" onChange={handlePhotoChange} style={{ display: 'none' }} />
     </div>
   );
 };

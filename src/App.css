@@ -18,12 +18,6 @@ body {
   position: relative;
 }
 
-.photo-container {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-}
-
 .header .name {
   color: #e50914;
   margin-right: 20px;
