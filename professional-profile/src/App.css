@@ -1,0 +1,60 @@
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  background: #333;
+  color: #fff;
+  padding: 1em 0;
+  width: 100%;
+  text-align: center;
+}
+
+section {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 80%;
+  max-width: 600px;
+}
+
+section h2 {
+  margin-top: 0;
+}
+
+#profile-photo {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px 0;
+}
+
+input[type="file"],
+textarea,
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+textarea {
+  height: 100px;
+}
+
+a {
+  display: block;
+  margin: 10px 0;
+  color: #0073b1;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
