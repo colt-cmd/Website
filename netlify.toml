@@ -1,8 +1,6 @@
 [build]
-  functions = "netlify/functions"
-  edge_functions = "netlify/edge-functions"
-  publish = "build"
   command = "npm run build"
+  publish = "build"
 
 [[redirects]]
   from = "/*"
@@ -12,12 +10,8 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-    X-Frame-Options = "DENY"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "no-referrer-when-downgrade"
     Content-Security-Policy = "default-src 'self'; frame-ancestors 'none';"
-
-[[edge_functions]]
-  path = "/edge-hello"
-  function = "edge-hello"
+    Referrer-Policy = "no-referrer-when-downgrade"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"

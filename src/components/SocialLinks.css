@@ -1,0 +1,34 @@
+.social-links {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #1a1a1a;
+    color: #fff;
+  }
+  
+  .social-links h2 {
+    color: #e50914;
+  }
+  
+  input[type="text"] {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    color: #fff;
+    width: 100%;
+  }
+  
+  .links-list {
+    margin-top: 10px;
+  }
+  
+  .links-list a {
+    display: block;
+    color: #e50914;
+    text-decoration: none;
+    margin-top: 10px;
+  }
+  

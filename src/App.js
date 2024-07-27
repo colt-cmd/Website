@@ -1,36 +1,22 @@
 import React from 'react';
-import './App.css';
 import ProfilePhoto from './components/ProfilePhoto';
-import CareerExperience from './components/CareerExperience';
-import Certifications from './components/Certifications';
-import Projects from './components/Projects';
+import Section from './components/Section';
 import SocialLinks from './components/SocialLinks';
+import './App.css';
 
-const App = () => {
+function App() {
   return (
-    <div className="app">
-      <header>
+    <div className="App">
+      <ProfilePhoto />
+      <div className="content">
         <h1>Colt Muhle</h1>
-        <ProfilePhoto />
-      </header>
-      <section>
-        <h2 className="section-title">Career Experience</h2>
-        <CareerExperience />
-      </section>
-      <section>
-        <h2 className="section-title">Certifications</h2>
-        <Certifications />
-      </section>
-      <section>
-        <h2 className="section-title">Projects</h2>
-        <Projects />
-      </section>
-      <section>
-        <h2 className="section-title">Connect with Me</h2>
+        <Section title="Career Experience" />
+        <Section title="Certifications" />
+        <Section title="Projects" />
         <SocialLinks />
-      </section>
+      </div>
     </div>
   );
-};
+}
 
 export default App;

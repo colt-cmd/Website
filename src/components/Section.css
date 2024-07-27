@@ -1,0 +1,39 @@
+.section {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #1a1a1a;
+    color: #fff;
+  }
+  
+  .section h2 {
+    color: #e50914;
+  }
+  
+  .files-list,
+  .links-list {
+    margin-top: 10px;
+  }
+  
+  textarea {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    color: #fff;
+  }
+  
+  input[type="file"],
+  input[type="text"] {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    color: #fff;
+    width: 100%;
+  }
+  

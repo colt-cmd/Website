@@ -19,7 +19,7 @@ const ProfilePhoto = () => {
 
   return (
     <div className="profile-photo">
-      <input type="file" accept="image/*" onChange={handlePhotoChange} />
+      <input id="photo-upload" type="file" accept="image/*" onChange={handlePhotoChange} />
       {photo && <img src={photo} alt="Profile" className="profile-photo-img" />}
     </div>
   );
