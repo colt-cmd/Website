@@ -27,7 +27,9 @@ function App() {
   return (
     <div className="App">
       <div className="header">
-        <ProfilePhoto />
+        <div className="photo-container">
+          <ProfilePhoto />
+        </div>
         <h1>Colt Muhle</h1>
       </div>
       <nav className="nav">

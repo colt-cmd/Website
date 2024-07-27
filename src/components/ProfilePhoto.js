@@ -19,8 +19,14 @@ const ProfilePhoto = () => {
 
   return (
     <div className="profile-photo">
+      <label htmlFor="photo-upload" className="photo-upload-label">
+        {photo ? (
+          <img src={photo} alt="Profile" className="profile-photo-img" />
+        ) : (
+          <div className="photo-placeholder">Upload Photo</div>
+        )}
+      </label>
       <input id="photo-upload" type="file" accept="image/*" onChange={handlePhotoChange} />
-      {photo && <img src={photo} alt="Profile" className="profile-photo-img" />}
     </div>
   );
 };
