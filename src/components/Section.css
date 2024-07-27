@@ -1,39 +1,52 @@
 .section {
     margin: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #1a1a1a;
-    color: #fff;
   }
   
   .section h2 {
     color: #e50914;
   }
   
-  .files-list,
-  .links-list {
-    margin-top: 10px;
+  .section input[type="file"] {
+    display: block;
+    margin-bottom: 10px;
   }
   
-  textarea {
+  .section textarea {
     width: 100%;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    background-color: #333;
-    color: #fff;
+    height: 100px;
+    margin-bottom: 10px;
   }
   
-  input[type="file"],
-  input[type="text"] {
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    background-color: #333;
-    color: #fff;
+  .section input[type="text"] {
     width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .section .files-list {
+    margin-top: 20px;
+  }
+  
+  .section .files-list h3 {
+    color: #e50914;
+  }
+  
+  .section .files-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .section .files-list ul li {
+    margin: 5px 0;
+  }
+  
+  .section .links-list a {
+    display: block;
+    color: #e50914;
+    text-decoration: none;
+    margin: 5px 0;
+  }
+  
+  .section .links-list a:hover {
+    text-decoration: underline;
   }
   

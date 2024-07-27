@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import './SocialLinks.css';
+import './Section.css';
 
 const SocialLinks = () => {
   const [github, setGithub] = useState('');
   const [linkedin, setLinkedin] = useState('');
 
   return (
-    <div className="social-links">
+    <div className="section">
       <h2>Connect with me</h2>
       <input
         type="text"
