@@ -30,7 +30,7 @@ function App() {
         <div className="photo-container">
           <ProfilePhoto />
         </div>
-        <h1>Colt Muhle</h1>
+        <h1 className="name">Colt Muhle</h1>
       </div>
       <nav className="nav">
         <button onClick={() => setActiveTab('CareerExperience')}>Career Experience</button>

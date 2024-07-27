@@ -15,6 +15,7 @@ body {
   align-items: center;
   padding: 20px;
   background-color: #1a1a1a;
+  position: relative;
 }
 
 .photo-container {
@@ -23,9 +24,10 @@ body {
   left: 10px;
 }
 
-.header h1 {
+.header .name {
   color: #e50914;
   margin-right: 20px;
+  margin-left: auto;
 }
 
 .nav {
