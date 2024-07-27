@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './ProfilePhoto.css';
 
 const ProfilePhoto = () => {
   const [photo, setPhoto] = useState(null);
@@ -18,9 +19,8 @@ const ProfilePhoto = () => {
 
   return (
     <div className="profile-photo">
-      <h2>Upload Profile Photo</h2>
       <input type="file" accept="image/*" onChange={handlePhotoChange} />
-      {photo && <img src={photo} alt="Profile" />}
+      {photo && <img src={photo} alt="Profile" className="profile-photo-img" />}
     </div>
   );
 };

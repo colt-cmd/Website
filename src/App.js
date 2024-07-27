@@ -6,19 +6,31 @@ import Certifications from './components/Certifications';
 import Projects from './components/Projects';
 import SocialLinks from './components/SocialLinks';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
+    <div className="app">
       <header>
-        <h1>Your Name</h1>
+        <h1>Colt Muhle</h1>
+        <ProfilePhoto />
       </header>
-      <ProfilePhoto />
-      <CareerExperience />
-      <Certifications />
-      <Projects />
-      <SocialLinks />
+      <section>
+        <h2 className="section-title">Career Experience</h2>
+        <CareerExperience />
+      </section>
+      <section>
+        <h2 className="section-title">Certifications</h2>
+        <Certifications />
+      </section>
+      <section>
+        <h2 className="section-title">Projects</h2>
+        <Projects />
+      </section>
+      <section>
+        <h2 className="section-title">Connect with Me</h2>
+        <SocialLinks />
+      </section>
     </div>
   );
-}
+};
 
 export default App;
