@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ProfilePhoto.css';
 
 const ProfilePhoto = () => {
-  const [photo, setPhoto] = useState(null);
+  const [photo, setPhoto] = useState(localStorage.getItem('profilePhoto'));
 
   const handlePhotoChange = (event) => {
     const file = event.target.files[0];
@@ -10,6 +10,7 @@ const ProfilePhoto = () => {
 
     reader.onloadend = () => {
       setPhoto(reader.result);
+      localStorage.setItem('profilePhoto', reader.result);
     };
 
     if (file) {
