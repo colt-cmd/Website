@@ -4,7 +4,7 @@ import './ProfilePhoto.css';
 const ProfilePhoto = () => {
   const [profilePhoto, setProfilePhoto] = useState('');
 
-  // useEffect to load profile photo from local storage
+  // Load profile photo from local storage on mount
   useEffect(() => {
     const storedPhoto = localStorage.getItem('profilePhoto');
     if (storedPhoto) {
@@ -32,7 +32,7 @@ const ProfilePhoto = () => {
       ) : (
         <div className="placeholder">Profile</div>
       )}
-      <input type="file" onChange={handlePhotoChange} />
+      <input type="file" accept="image/*" onChange={handlePhotoChange} />
     </div>
   );
 };
