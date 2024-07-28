@@ -2,37 +2,37 @@ import React, { useState, useEffect } from 'react';
 import './ProfilePhoto.css';
 
 const ProfilePhoto = () => {
-  const [profilePhoto, setProfilePhoto] = useState('');
-
-  // Load profile photo from local storage on mount
-  useEffect(() => {
-    const storedPhoto = localStorage.getItem('profilePhoto');
-    if (storedPhoto) {
-      setProfilePhoto(storedPhoto);
-    }
-  }, []);
+  const [photo, setPhoto] = useState(() => localStorage.getItem('profilePhoto'));
 
   const handlePhotoChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        const photoData = reader.result;
-        setProfilePhoto(photoData);
-        localStorage.setItem('profilePhoto', photoData);
+        setPhoto(reader.result);
+        localStorage.setItem('profilePhoto', reader.result);
       };
       reader.readAsDataURL(file);
     }
   };
 
   return (
-    <div className="profile-photo-container">
-      {profilePhoto ? (
-        <img src={profilePhoto} alt="Profile" className="profile-photo" />
-      ) : (
-        <div className="placeholder">Profile</div>
-      )}
-      <input type="file" accept="image/*" onChange={handlePhotoChange} />
+    <div className="profile-photo">
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handlePhotoChange}
+        style={{ display: 'none' }}
+        id="photo-upload"
+      />
+      <label htmlFor="photo-upload">
+        <div
+          className="photo-circle"
+          style={{ backgroundImage: `url(${photo})` }}
+        >
+          {!photo && <span>Upload Photo</span>}
+        </div>
+      </label>
     </div>
   );
 };
