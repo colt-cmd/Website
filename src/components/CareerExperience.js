@@ -5,6 +5,7 @@ const CareerExperience = () => {
   const [resume, setResume] = useState(null);
   const [description, setDescription] = useState('');
   const [link, setLink] = useState('');
+  const [showUpload, setShowUpload] = useState(false);
 
   const handleFileChange = (event) => {
     setResume(event.target.files[0]);
@@ -24,8 +25,15 @@ const CareerExperience = () => {
         value={link}
         onChange={(e) => setLink(e.target.value)}
       />
-      <input type="file" accept=".docx,.pdf" onChange={handleFileChange} />
-      {resume && <p>Uploaded File: {resume.name}</p>}
+      <button onClick={() => setShowUpload(!showUpload)}>
+        {showUpload ? 'Cancel Upload' : 'Upload File'}
+      </button>
+      {showUpload && (
+        <div>
+          <input type="file" accept=".docx,.pdf" onChange={handleFileChange} />
+          {resume && <p>Uploaded File: {resume.name}</p>}
+        </div>
+      )}
     </div>
   );
 };
