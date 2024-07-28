@@ -4,13 +4,20 @@ import './ProfilePhoto.css';
 const ProfilePhoto = () => {
   const [photo, setPhoto] = useState(() => localStorage.getItem('profilePhoto'));
 
+  useEffect(() => {
+    if (photo) {
+      localStorage.setItem('profilePhoto', photo);
+    } else {
+      localStorage.removeItem('profilePhoto');
+    }
+  }, [photo]);
+
   const handlePhotoChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPhoto(reader.result);
-        localStorage.setItem('profilePhoto', reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -18,21 +25,9 @@ const ProfilePhoto = () => {
 
   return (
     <div className="profile-photo">
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handlePhotoChange}
-        style={{ display: 'none' }}
-        id="photo-upload"
-      />
-      <label htmlFor="photo-upload">
-        <div
-          className="photo-circle"
-          style={{ backgroundImage: `url(${photo})` }}
-        >
-          {!photo && <span>Upload Photo</span>}
-        </div>
-      </label>
+      <h2>Profile Photo</h2>
+      <input type="file" accept="image/*" onChange={handlePhotoChange} />
+      {photo && <img src={photo} alt="Profile" className="photo" />}
     </div>
   );
 };
