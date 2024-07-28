@@ -10,6 +10,7 @@ import './App.css';
 function App() {
   const [activeTab, setActiveTab] = useState('CareerExperience');
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
+  const [profilePhoto, setProfilePhoto] = useState(() => localStorage.getItem('profilePhoto'));
 
   useEffect(() => {
     if (user) {
@@ -35,22 +36,32 @@ function App() {
   const renderContent = () => {
     switch (activeTab) {
       case 'CareerExperience':
-        return <CareerExperience />;
+        return <CareerExperience user={user} />;
       case 'Certifications':
-        return <Certifications />;
+        return <Certifications user={user} />;
       case 'Projects':
-        return <Projects />;
+        return <Projects user={user} />;
       case 'SocialLinks':
         return <SocialLinks isAdmin={isAdmin} />;
       default:
-        return <CareerExperience />;
+        return <CareerExperience user={user} />;
     }
+  };
+
+  const handleProfilePhotoChange = (photo) => {
+    setProfilePhoto(photo);
   };
 
   return (
     <div className="App">
       <div className="header">
-        <ProfilePhoto />
+        <div className="profile-photo-container">
+          {profilePhoto ? (
+            <img src={profilePhoto} alt="Profile" className="photo-circle" />
+          ) : (
+            <div className="photo-circle-placeholder">Profile</div>
+          )}
+        </div>
         <h1 className="name">Colt Muhle</h1>
         <div className="user-info">
           {user ? (
@@ -63,6 +74,7 @@ function App() {
           )}
         </div>
       </div>
+      <ProfilePhoto onPhotoChange={handleProfilePhotoChange} />
       <nav className="nav">
         <button onClick={() => setActiveTab('CareerExperience')}>Career Experience</button>
         <button onClick={() => setActiveTab('Certifications')}>Cyber Training</button>

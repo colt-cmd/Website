@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import './ProfilePhoto.css';
 
-const ProfilePhoto = () => {
+const ProfilePhoto = ({ onPhotoChange }) => {
   const [photo, setPhoto] = useState(() => localStorage.getItem('profilePhoto'));
 
   useEffect(() => {
     if (photo) {
       localStorage.setItem('profilePhoto', photo);
+      onPhotoChange(photo); // Notify parent component about the photo change
     } else {
       localStorage.removeItem('profilePhoto');
     }
-  }, [photo]);
+  }, [photo, onPhotoChange]);
 
   const handlePhotoChange = (event) => {
     const file = event.target.files[0];
@@ -27,11 +28,6 @@ const ProfilePhoto = () => {
     <div className="profile-photo">
       <h2>Profile Photo</h2>
       <input type="file" accept="image/*" onChange={handlePhotoChange} />
-      {photo ? (
-        <img src={photo} alt="Profile" className="photo-circle" />
-      ) : (
-        <div className="photo-circle-placeholder">Profile</div>
-      )}
     </div>
   );
 };
