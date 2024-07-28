@@ -33,10 +33,6 @@ function App() {
   const isAdmin = user && user.username === 'venator';
 
   const renderContent = () => {
-    if (!user) {
-      return <Login setUser={setUser} />;
-    }
-
     switch (activeTab) {
       case 'CareerExperience':
         return <CareerExperience user={user} />;
@@ -56,23 +52,25 @@ function App() {
       <div className="header">
         <ProfilePhoto />
         <h1 className="name">Colt Muhle</h1>
-        {user && (
-          <div className="user-info">
-            <span>Welcome, {user.username}</span>
-            <button onClick={() => setUser(null)}>Sign Out</button>
-          </div>
-        )}
+        <div className="user-info">
+          {user ? (
+            <>
+              <span>Welcome, {user.username}</span>
+              <button onClick={() => setUser(null)}>Sign Out</button>
+            </>
+          ) : (
+            <button onClick={() => setActiveTab('Login')}>Sign In</button>
+          )}
+        </div>
       </div>
-      {user && (
-        <nav className="nav">
-          <button onClick={() => setActiveTab('CareerExperience')}>Career Experience</button>
-          <button onClick={() => setActiveTab('Certifications')}>Cyber Training</button>
-          <button onClick={() => setActiveTab('Projects')}>Projects</button>
-          <button onClick={() => setActiveTab('SocialLinks')}>Connect with me</button>
-        </nav>
-      )}
+      <nav className="nav">
+        <button onClick={() => setActiveTab('CareerExperience')}>Career Experience</button>
+        <button onClick={() => setActiveTab('Certifications')}>Cyber Training</button>
+        <button onClick={() => setActiveTab('Projects')}>Projects</button>
+        <button onClick={() => setActiveTab('SocialLinks')}>Connect with me</button>
+      </nav>
       <div className="content">
-        {renderContent()}
+        {activeTab === 'Login' ? <Login setUser={setUser} /> : renderContent()}
       </div>
     </div>
   );
