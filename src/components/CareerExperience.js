@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Section.css';
 
-const CareerExperience = ({ user }) => {
+const CareerExperience = () => {
   const [resume, setResume] = useState(null);
   const [description, setDescription] = useState('');
   const [link, setLink] = useState('');

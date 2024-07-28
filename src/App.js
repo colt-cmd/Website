@@ -35,15 +35,15 @@ function App() {
   const renderContent = () => {
     switch (activeTab) {
       case 'CareerExperience':
-        return <CareerExperience user={user} />;
+        return <CareerExperience />;
       case 'Certifications':
-        return <Certifications user={user} />;
+        return <Certifications />;
       case 'Projects':
-        return <Projects user={user} />;
+        return <Projects />;
       case 'SocialLinks':
         return <SocialLinks isAdmin={isAdmin} />;
       default:
-        return <CareerExperience user={user} />;
+        return <CareerExperience />;
     }
   };
 
