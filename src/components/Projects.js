@@ -13,7 +13,6 @@ const Projects = () => {
   return (
     <div className="section">
       <h2>Projects</h2>
-      <input type="file" accept="*/*" onChange={handleFileChange} multiple />
       <textarea
         placeholder="Describe your project..."
         value={description}
@@ -25,6 +24,7 @@ const Projects = () => {
         value={link}
         onChange={(e) => setLink(e.target.value)}
       />
+      <input type="file" accept="*/*" onChange={handleFileChange} multiple />
       <div className="files-list">
         {files.length > 0 && <h3>Uploaded Files:</h3>}
         <ul>

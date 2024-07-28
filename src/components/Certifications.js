@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Section.css';
 
-const Certifications = () => {
+const Certifications = ({ user }) => {
   const [certificate, setCertificate] = useState(null);
   const [description, setDescription] = useState('');
   const [link, setLink] = useState('');
@@ -12,10 +12,9 @@ const Certifications = () => {
 
   return (
     <div className="section">
-      <h2>Cyber Training</h2>
-      <input type="file" accept=".pdf" onChange={handleFileChange} />
+      <h2>Certifications</h2>
       <textarea
-        placeholder="Describe your certification..."
+        placeholder="Describe your certifications..."
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
@@ -25,6 +24,7 @@ const Certifications = () => {
         value={link}
         onChange={(e) => setLink(e.target.value)}
       />
+      <input type="file" accept=".docx,.pdf" onChange={handleFileChange} />
       {certificate && <p>Uploaded File: {certificate.name}</p>}
     </div>
   );
