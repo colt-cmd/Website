@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProfilePhoto from './components/ProfilePhoto';
 import CareerExperience from './components/CareerExperience';
 import Certifications from './components/Certifications';
@@ -9,7 +9,26 @@ import './App.css';
 
 function App() {
   const [activeTab, setActiveTab] = useState('CareerExperience');
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('user');
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const handleStorage = () => {
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+      if (storedUser) {
+        setUser(storedUser);
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
 
   const isAdmin = user && user.username === 'venator';
 
@@ -37,15 +56,11 @@ function App() {
       <div className="header">
         <ProfilePhoto />
         <h1 className="name">Colt Muhle</h1>
-        {user ? (
+        {user && (
           <div className="user-info">
             <span>Welcome, {user.username}</span>
             <button onClick={() => setUser(null)}>Sign Out</button>
           </div>
-        ) : (
-          <button onClick={() => setActiveTab('Login')} className="sign-in-button">
-            Sign In
-          </button>
         )}
       </div>
       {user && (

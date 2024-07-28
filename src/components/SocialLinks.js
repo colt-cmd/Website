@@ -1,15 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-// Utility function to validate URLs
-const isValidUrl = (url) => {
-  const regex = /^(ftp|http|https):\/\/[^ "]+$/;
-  return regex.test(url);
-};
-
-const SocialLinks = ({ githubUrl, linkedinUrl, isAdmin, onSaveUrls }) => {
+const SocialLinks = ({ isAdmin }) => {
+  const [githubUrl, setGithubUrl] = useState(localStorage.getItem('githubUrl') || '');
+  const [linkedinUrl, setLinkedinUrl] = useState(localStorage.getItem('linkedinUrl') || '');
   const [inputGithubUrl, setInputGithubUrl] = useState(githubUrl);
   const [inputLinkedinUrl, setInputLinkedinUrl] = useState(linkedinUrl);
   const [errors, setErrors] = useState({ github: '', linkedin: '' });
+
+  useEffect(() => {
+    if (githubUrl) {
+      localStorage.setItem('githubUrl', githubUrl);
+    }
+    if (linkedinUrl) {
+      localStorage.setItem('linkedinUrl', linkedinUrl);
+    }
+  }, [githubUrl, linkedinUrl]);
+
+  const isValidUrl = (url) => {
+    const regex = /^(ftp|http|https):\/\/[^ "]+$/;
+    return regex.test(url);
+  };
 
   const handleSaveUrls = () => {
     let valid = true;
@@ -28,7 +38,8 @@ const SocialLinks = ({ githubUrl, linkedinUrl, isAdmin, onSaveUrls }) => {
     }
 
     if (valid) {
-      onSaveUrls(inputGithubUrl, inputLinkedinUrl);
+      setGithubUrl(inputGithubUrl);
+      setLinkedinUrl(inputLinkedinUrl);
       alert('URLs saved successfully!');
     }
   };
@@ -37,16 +48,20 @@ const SocialLinks = ({ githubUrl, linkedinUrl, isAdmin, onSaveUrls }) => {
     <div>
       <h3>Connect with me</h3>
       <ul>
-        <li>
-          <a href={githubUrl} target="_blank" rel="noopener noreferrer">
-            GitHub
-          </a>
-        </li>
-        <li>
-          <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
-            LinkedIn
-          </a>
-        </li>
+        {githubUrl && (
+          <li>
+            <a href={githubUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'blue' }}>
+              GitHub
+            </a>
+          </li>
+        )}
+        {linkedinUrl && (
+          <li>
+            <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'blue' }}>
+              LinkedIn
+            </a>
+          </li>
+        )}
       </ul>
       {isAdmin && (
         <div>
