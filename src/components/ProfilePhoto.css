@@ -1,26 +1,24 @@
 .profile-photo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+    text-align: center;
   }
   
   .photo-circle {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background-color: #ddd;
-    background-size: cover;
-    background-position: center;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    object-fit: cover;
+    display: block;
+    margin: 10px auto;
   }
   
-  .photo-circle span {
-    color: #888;
-    font-size: 16px;
+  .photo-circle-placeholder {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
   }
   

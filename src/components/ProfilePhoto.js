@@ -27,7 +27,11 @@ const ProfilePhoto = () => {
     <div className="profile-photo">
       <h2>Profile Photo</h2>
       <input type="file" accept="image/*" onChange={handlePhotoChange} />
-      {photo && <img src={photo} alt="Profile" className="photo" />}
+      {photo ? (
+        <img src={photo} alt="Profile" className="photo-circle" />
+      ) : (
+        <div className="photo-circle-placeholder">Profile</div>
+      )}
     </div>
   );
 };
