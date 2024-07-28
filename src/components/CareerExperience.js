@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Section.css';
 
-const CareerExperience = () => {
+const CareerExperience = ({ user }) => {
   const [resume, setResume] = useState(null);
   const [description, setDescription] = useState('');
   const [link, setLink] = useState('');
@@ -13,19 +13,23 @@ const CareerExperience = () => {
   return (
     <div className="section">
       <h2>Career Experience</h2>
-      <input type="file" accept=".docx,.pdf" onChange={handleFileChange} />
-      <textarea
-        placeholder="Describe your career experience..."
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Add link"
-        value={link}
-        onChange={(e) => setLink(e.target.value)}
-      />
-      {resume && <p>Uploaded File: {resume.name}</p>}
+      {user && (
+        <>
+          <input type="file" accept=".docx,.pdf" onChange={handleFileChange} />
+          <textarea
+            placeholder="Describe your career experience..."
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Add link"
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
+          />
+          {resume && <p>Uploaded File: {resume.name}</p>}
+        </>
+      )}
     </div>
   );
 };
