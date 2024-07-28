@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ProfilePhoto from './components/ProfilePhoto';
 import CareerExperience from './components/CareerExperience';
 import Certifications from './components/Certifications';
@@ -10,23 +10,8 @@ import './App.css';
 function App() {
   const [activeTab, setActiveTab] = useState('CareerExperience');
   const [user, setUser] = useState(null);
-  const [githubUrl, setGithubUrl] = useState('');
-  const [linkedinUrl, setLinkedinUrl] = useState('');
 
-  // Fetch saved URLs from local storage on component mount
-  useEffect(() => {
-    const savedGithubUrl = localStorage.getItem('githubUrl');
-    const savedLinkedinUrl = localStorage.getItem('linkedinUrl');
-    if (savedGithubUrl) setGithubUrl(savedGithubUrl);
-    if (savedLinkedinUrl) setLinkedinUrl(savedLinkedinUrl);
-  }, []);
-
-  const handleSaveUrls = (newGithubUrl, newLinkedinUrl) => {
-    setGithubUrl(newGithubUrl);
-    setLinkedinUrl(newLinkedinUrl);
-    localStorage.setItem('githubUrl', newGithubUrl);
-    localStorage.setItem('linkedinUrl', newLinkedinUrl);
-  };
+  const isAdmin = user && user.username === 'venator';
 
   const renderContent = () => {
     if (!user) {
@@ -41,14 +26,7 @@ function App() {
       case 'Projects':
         return <Projects user={user} />;
       case 'SocialLinks':
-        return (
-          <SocialLinks 
-            githubUrl={githubUrl} 
-            linkedinUrl={linkedinUrl} 
-            isAdmin={user === 'venator'} 
-            onSaveUrls={handleSaveUrls} 
-          />
-        );
+        return <SocialLinks isAdmin={isAdmin} />;
       default:
         return <CareerExperience user={user} />;
     }
@@ -59,6 +37,16 @@ function App() {
       <div className="header">
         <ProfilePhoto />
         <h1 className="name">Colt Muhle</h1>
+        {user ? (
+          <div className="user-info">
+            <span>Welcome, {user.username}</span>
+            <button onClick={() => setUser(null)}>Sign Out</button>
+          </div>
+        ) : (
+          <button onClick={() => setActiveTab('Login')} className="sign-in-button">
+            Sign In
+          </button>
+        )}
       </div>
       {user && (
         <nav className="nav">
