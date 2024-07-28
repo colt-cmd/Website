@@ -2,7 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './ProfilePhoto.css';
 
 const ProfilePhoto = () => {
-  const [profilePhoto, setProfilePhoto] = useState(localStorage.getItem('profilePhoto'));
+  const [profilePhoto, setProfilePhoto] = useState('');
+
+  // useEffect to load profile photo from local storage
+  useEffect(() => {
+    const storedPhoto = localStorage.getItem('profilePhoto');
+    if (storedPhoto) {
+      setProfilePhoto(storedPhoto);
+    }
+  }, []);
 
   const handlePhotoChange = (event) => {
     const file = event.target.files[0];
