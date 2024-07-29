@@ -7,7 +7,7 @@ const ProfilePhoto = ({
 }) => (
   <label htmlFor="photo-upload" className="custom-file-upload fas">
     <div className="img-wrap img-upload">
-      <img alt="Profile Preview" for="photo-upload" src={src} />
+      <img alt="Profile Preview" src={src} />
     </div>
     <input id="photo-upload" type="file" onChange={onChange} />
   </label>
@@ -64,7 +64,7 @@ const Profile = ({
       <h1>Profile Card</h1>
       <label className="custom-file-upload fas">
         <div className="img-wrap">
-          <img alt="Profile" for="photo-upload" src={src} />
+          <img alt="Profile" src={src} />
         </div>
       </label>
       <div className="name">{name}</div>
