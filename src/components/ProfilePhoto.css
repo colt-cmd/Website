@@ -2,6 +2,9 @@
     position: absolute;
     top: 20px;
     left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
   .photo-upload-label {
@@ -28,8 +31,14 @@
     font-size: 14px;
   }
   
-  .confirm-button {
+  .confirm-buttons {
+    display: flex;
+    gap: 10px;
     margin-top: 10px;
+  }
+  
+  .confirm-button,
+  .cancel-button {
     background-color: #e50914;
     color: #fff;
     border: none;
@@ -38,6 +47,11 @@
     font-size: 14px;
   }
   
-  .confirm-button:hover {
-    background-color: #f40612;
+  .cancel-button {
+    background-color: #444;
+  }
+  
+  .confirm-button:hover,
+  .cancel-button:hover {
+    opacity: 0.9;
   }
