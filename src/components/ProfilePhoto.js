@@ -151,10 +151,3 @@ class CardProfile extends React.Component {
     )
   }
 }
-
-ReactDOM.render(
-  <CardProfile/>,
-  document.getElementById('root')
-)
-
-export default ProfilePhoto;
