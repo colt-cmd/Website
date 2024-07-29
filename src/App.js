@@ -55,7 +55,7 @@ function App() {
   return (
     <div className="App">
       <div className="header">
-        <ProfilePhoto onPhotoChange={handleProfilePhotoChange} />
+        <ProfilePhoto onPhotoChange={handleProfilePhotoChange} initialPhoto={profilePhoto} />
         <h1 className="name">Colt Muhle</h1>
         <div className="user-info">
           {user ? (

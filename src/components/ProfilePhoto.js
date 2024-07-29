@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './ProfilePhoto.css';
 
-const ProfilePhoto = ({ onPhotoChange }) => {
+const ProfilePhoto = ({ onPhotoChange, initialPhoto }) => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [preview, setPreview] = useState(null);
+  const [preview, setPreview] = useState(initialPhoto);
 
   useEffect(() => {
-    const storedPhoto = localStorage.getItem('profilePhoto');
-    if (storedPhoto) {
-      setPreview(storedPhoto);
-      onPhotoChange(storedPhoto);
+    if (initialPhoto) {
+      setPreview(initialPhoto);
     }
-  }, [onPhotoChange]);
+  }, [initialPhoto]);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
