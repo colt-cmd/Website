@@ -1,154 +1,151 @@
 import React, { useState, useEffect } from 'react';
 import './ProfilePhoto.css';
 
-const ProfilePhoto =({
+const ProfilePhoto = ({
   onChange,
   src
-})=>
+}) => (
   <label htmlFor="photo-upload" className="custom-file-upload fas">
-    <div className="img-wrap img-upload" >
-      <img for="photo-upload" src={src}/>
+    <div className="img-wrap img-upload">
+      <img alt="Profile Preview" for="photo-upload" src={src} />
     </div>
-    <input id="photo-upload" type="file" onChange={onChange}/> 
+    <input id="photo-upload" type="file" onChange={onChange} />
   </label>
+);
 
-
-const Name =({
+const Name = ({
   onChange,
   value
-})=>
+}) => (
   <div className="field">
     <label htmlFor="name">
-      name:
+      Name:
     </label>
-    <input 
-      id="name" 
-      type="text" 
-      onChange={onChange} 
-      maxlength="25" 
-      value={value} 
-      placeholder="Alexa" 
-      required/>
+    <input
+      id="name"
+      type="text"
+      onChange={onChange}
+      maxLength="25"
+      value={value}
+      placeholder="Alexa"
+      required
+    />
   </div>
+);
 
-  
-const Status =({
+const Status = ({
   onChange,
   value
-})=>
+}) => (
   <div className="field">
     <label htmlFor="status">
-      status:
+      Status:
     </label>
-    <input 
-      id="status" 
-      type="text" 
-      onChange={onChange} 
-      maxLength="35" 
-      value={value} 
-      placeholder="It's a nice day!" 
-      required/>
+    <input
+      id="status"
+      type="text"
+      onChange={onChange}
+      maxLength="35"
+      value={value}
+      placeholder="It's a nice day!"
+      required
+    />
   </div>
+);
 
-
-const Profile =({
+const Profile = ({
   onSubmit,
   src,
   name,
   status,
-})=>
+}) => (
   <div className="card">
     <form onSubmit={onSubmit}>
       <h1>Profile Card</h1>
       <label className="custom-file-upload fas">
-        <div className="img-wrap" >
-          <img for="photo-upload" src={src}/>
+        <div className="img-wrap">
+          <img alt="Profile" for="photo-upload" src={src} />
         </div>
       </label>
       <div className="name">{name}</div>
       <div className="status">{status}</div>
-      <button type="submit" className="edit">Edit Profile </button>
+      <button type="submit" className="edit">Edit Profile</button>
     </form>
   </div>
-     
-      
-const Edit =({
+);
+
+const Edit = ({
   onSubmit,
   children,
-})=>
+}) => (
   <div className="card">
     <form onSubmit={onSubmit}>
       <h1>Profile Card</h1>
-        {children}
-      <button type="submit" className="save">Save </button>
+      {children}
+      <button type="submit" className="save">Save</button>
     </form>
   </div>
+);
 
 class CardProfile extends React.Component {
   state = {
     file: '',
     imagePreviewUrl: 'https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true',
-    name:'',
-    status:'',
+    name: '',
+    status: '',
     active: 'edit'
-  }
+  };
 
-  photoUpload = e =>{
+  photoUpload = e => {
     e.preventDefault();
     const reader = new FileReader();
     const file = e.target.files[0];
     reader.onloadend = () => {
       this.setState({
-        file: file,
+        file,
         imagePreviewUrl: reader.result
       });
-    }
+    };
     reader.readAsDataURL(file);
   }
-  editName = e =>{
+
+  editName = e => {
     const name = e.target.value;
-    this.setState({
-      name,
-    });
+    this.setState({ name });
   }
-  
+
   editStatus = e => {
     const status = e.target.value;
-    this.setState({
-      status,
-    });
+    this.setState({ status });
   }
-  
-  handleSubmit= e =>{
+
+  handleSubmit = e => {
     e.preventDefault();
     let activeP = this.state.active === 'edit' ? 'profile' : 'edit';
-    this.setState({
-      active: activeP,
-    })
+    this.setState({ active: activeP });
   }
-  
+
   render() {
-    const {imagePreviewUrl, 
-           name, 
-           status, 
-           active} = this.state;
+    const { imagePreviewUrl, name, status, active } = this.state;
     return (
       <div>
-        {(active === 'edit')?(
+        {active === 'edit' ? (
           <Edit onSubmit={this.handleSubmit}>
-            <ProfilePhoto onChange={this.photoUpload} src={imagePreviewUrl}/>
-            <Name onChange={this.editName} value={name}/>
-            <Status onChange={this.editStatus} value={status}/>
+            <ProfilePhoto onChange={this.photoUpload} src={imagePreviewUrl} />
+            <Name onChange={this.editName} value={name} />
+            <Status onChange={this.editStatus} value={status} />
           </Edit>
-        ):(
-          <Profile 
-            onSubmit={this.handleSubmit} 
-            src={imagePreviewUrl} 
-            name={name} 
-            status={status}/>)}
-        
+        ) : (
+          <Profile
+            onSubmit={this.handleSubmit}
+            src={imagePreviewUrl}
+            name={name}
+            status={status}
+          />
+        )}
       </div>
-    )
+    );
   }
 }
-export default ProfilePhoto;
+
+export default CardProfile;  // Ensure this is exported and used where necessary
