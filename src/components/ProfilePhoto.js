@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState /*, useEffect */ } from 'react';
 import './ProfilePhoto.css';
 
 const ProfilePhoto = ({
@@ -148,4 +148,4 @@ class CardProfile extends React.Component {
   }
 }
 
-export default CardProfile;  // Ensure this is exported and used where necessary
+export default CardProfile;
