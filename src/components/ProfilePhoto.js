@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './ProfilePhoto.css';
 
-const ProfilePhoto = ({ onPhotoChange, initialPhoto }) => {
-  const [preview, setPreview] = useState(initialPhoto || null);
+const ProfilePhoto = ({ onPhotoChange }) => {
+  const [preview, setPreview] = useState(null);
   const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
