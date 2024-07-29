@@ -1,33 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import './ProfilePhoto.css';
 
 const ProfilePhoto = ({ onPhotoChange }) => {
-  const [photo, setPhoto] = useState(() => localStorage.getItem('profilePhoto'));
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [preview, setPreview] = useState(null);
 
   useEffect(() => {
-    if (photo) {
-      localStorage.setItem('profilePhoto', photo);
-      onPhotoChange(photo); // Notify parent component about the photo change
-    } else {
-      localStorage.removeItem('profilePhoto');
+    const storedPhoto = localStorage.getItem('profilePhoto');
+    if (storedPhoto) {
+      setPreview(storedPhoto);
     }
-  }, [photo, onPhotoChange]);
+  }, []);
 
-  const handlePhotoChange = (event) => {
+  const handleFileChange = (event) => {
     const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPhoto(reader.result);
-      };
-      reader.readAsDataURL(file);
+    setSelectedFile(file);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleUpload = () => {
+    if (selectedFile) {
+      // Save the selected file to localStorage or backend
+      localStorage.setItem('profilePhoto', preview);
+      onPhotoChange(preview);
+      setSelectedFile(null);
     }
   };
 
   return (
-    <div className="profile-photo">
-      <h2>Profile Photo</h2>
-      <input type="file" accept="image/*" onChange={handlePhotoChange} />
+    <div className="profile-photo-container">
+      <div>
+        {preview ? (
+          <img src={preview} alt="Profile Preview" className="photo-circle" />
+        ) : (
+          <div className="photo-circle-placeholder">Profile</div>
+        )}
+        <input type="file" onChange={handleFileChange} />
+        {selectedFile && (
+          <button onClick={handleUpload}>Confirm</button>
+        )}
+      </div>
     </div>
   );
 };
