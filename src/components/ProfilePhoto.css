@@ -1,24 +1,43 @@
-.profile-photo {
-    text-align: center;
+.profile-photo-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+  
+  .photo-upload-label {
+    cursor: pointer;
   }
   
   .photo-circle {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
     display: block;
-    margin: 10px auto;
   }
   
   .photo-circle-placeholder {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    background-color: #ccc;
+    background-color: #444;
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 10px auto;
+    font-size: 14px;
   }
   
+  .confirm-button {
+    margin-top: 10px;
+    background-color: #e50914;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .confirm-button:hover {
+    background-color: #f40612;
+  }

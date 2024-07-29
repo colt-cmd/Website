@@ -55,13 +55,7 @@ function App() {
   return (
     <div className="App">
       <div className="header">
-        <div className="profile-photo-container">
-          {profilePhoto ? (
-            <img src={profilePhoto} alt="Profile" className="photo-circle" />
-          ) : (
-            <div className="photo-circle-placeholder">Profile</div>
-          )}
-        </div>
+        <ProfilePhoto onPhotoChange={handleProfilePhotoChange} />
         <h1 className="name">Colt Muhle</h1>
         <div className="user-info">
           {user ? (
@@ -74,7 +68,6 @@ function App() {
           )}
         </div>
       </div>
-      <ProfilePhoto onPhotoChange={handleProfilePhotoChange} />
       <nav className="nav">
         <button onClick={() => setActiveTab('CareerExperience')}>Career Experience</button>
         <button onClick={() => setActiveTab('Certifications')}>Cyber Training</button>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './ProfilePhoto.css';
 
 const ProfilePhoto = ({ onPhotoChange }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -8,23 +9,24 @@ const ProfilePhoto = ({ onPhotoChange }) => {
     const storedPhoto = localStorage.getItem('profilePhoto');
     if (storedPhoto) {
       setPreview(storedPhoto);
+      onPhotoChange(storedPhoto);
     }
-  }, []);
+  }, [onPhotoChange]);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    setSelectedFile(file);
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreview(reader.result);
-    };
-    reader.readAsDataURL(file);
+    if (file) {
+      setSelectedFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
-  const handleUpload = () => {
+  const handleConfirm = () => {
     if (selectedFile) {
-      // Save the selected file to localStorage or backend
       localStorage.setItem('profilePhoto', preview);
       onPhotoChange(preview);
       setSelectedFile(null);
@@ -33,17 +35,23 @@ const ProfilePhoto = ({ onPhotoChange }) => {
 
   return (
     <div className="profile-photo-container">
-      <div>
+      <label htmlFor="photo-upload" className="photo-upload-label">
         {preview ? (
           <img src={preview} alt="Profile Preview" className="photo-circle" />
         ) : (
-          <div className="photo-circle-placeholder">Profile</div>
+          <div className="photo-circle-placeholder">Upload Photo</div>
         )}
-        <input type="file" onChange={handleFileChange} />
-        {selectedFile && (
-          <button onClick={handleUpload}>Confirm</button>
-        )}
-      </div>
+      </label>
+      <input
+        id="photo-upload"
+        type="file"
+        onChange={handleFileChange}
+        accept="image/*"
+        style={{ display: 'none' }}
+      />
+      {selectedFile && (
+        <button onClick={handleConfirm} className="confirm-button">Confirm</button>
+      )}
     </div>
   );
 };
