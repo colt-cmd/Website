@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './ProfilePhoto.css';
+import defaultPhoto from 'C:\Users\colt\Documents\GitHub\Website\src\components\IMG_2159.JPG'; // Assuming the path to the image
 
 const ProfilePhoto = ({ onPhotoChange }) => {
-  const [preview, setPreview] = useState(null);
-  const [showConfirm, setShowConfirm] = useState(false);
+  const [preview, setPreview] = useState(defaultPhoto);
 
   useEffect(() => {
     const storedPhoto = localStorage.getItem('profilePhoto');
@@ -18,24 +18,13 @@ const ProfilePhoto = ({ onPhotoChange }) => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreview(reader.result);
-        setShowConfirm(true);
+        const imageUrl = reader.result;
+        setPreview(imageUrl);
+        localStorage.setItem('profilePhoto', imageUrl);
+        onPhotoChange(imageUrl);
       };
       reader.readAsDataURL(file);
     }
-  };
-
-  const handleConfirm = () => {
-    if (preview) {
-      localStorage.setItem('profilePhoto', preview);
-      onPhotoChange(preview);
-      setShowConfirm(false);
-    }
-  };
-
-  const handleCancel = () => {
-    setPreview(localStorage.getItem('profilePhoto') || null);
-    setShowConfirm(false);
   };
 
   return (
@@ -54,12 +43,6 @@ const ProfilePhoto = ({ onPhotoChange }) => {
         accept="image/*"
         style={{ display: 'none' }}
       />
-      {showConfirm && (
-        <div className="confirm-buttons">
-          <button onClick={handleConfirm} className="confirm-button">Confirm</button>
-          <button onClick={handleCancel} className="cancel-button">Cancel</button>
-        </div>
-      )}
     </div>
   );
 };
