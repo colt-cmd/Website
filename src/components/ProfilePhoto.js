@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ProfilePhoto.css';
-import defaultPhoto from 'C:\Users\colt\Documents\GitHub\Website\src\components\IMG_2159.JPG'; // Assuming the path to the image
+import defaultPhoto from './IMG_2159.JPG'; // Assuming the path to the image
 
 const ProfilePhoto = ({ onPhotoChange }) => {
   const [preview, setPreview] = useState(defaultPhoto);
