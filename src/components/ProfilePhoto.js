@@ -1,151 +1,67 @@
-import React /*, { useState, useEffect } */ from 'react';
+import React, { useState, useEffect } from 'react';
 import './ProfilePhoto.css';
 
-const ProfilePhoto = ({
-  onChange,
-  src
-}) => (
-  <label htmlFor="photo-upload" className="custom-file-upload fas">
-    <div className="img-wrap img-upload">
-      <img alt="Profile Preview" src={src} />
-    </div>
-    <input id="photo-upload" type="file" onChange={onChange} />
-  </label>
-);
+const ProfilePhoto = ({ onPhotoChange }) => {
+  const [preview, setPreview] = useState(null);
+  const [showConfirm, setShowConfirm] = useState(false);
 
-const Name = ({
-  onChange,
-  value
-}) => (
-  <div className="field">
-    <label htmlFor="name">
-      Name:
-    </label>
-    <input
-      id="name"
-      type="text"
-      onChange={onChange}
-      maxLength="25"
-      value={value}
-      placeholder="Alexa"
-      required
-    />
-  </div>
-);
+  useEffect(() => {
+    const storedPhoto = localStorage.getItem('profilePhoto');
+    if (storedPhoto) {
+      setPreview(storedPhoto);
+      onPhotoChange(storedPhoto);
+    }
+  }, [onPhotoChange]);
 
-const Status = ({
-  onChange,
-  value
-}) => (
-  <div className="field">
-    <label htmlFor="status">
-      Status:
-    </label>
-    <input
-      id="status"
-      type="text"
-      onChange={onChange}
-      maxLength="35"
-      value={value}
-      placeholder="It's a nice day!"
-      required
-    />
-  </div>
-);
-
-const Profile = ({
-  onSubmit,
-  src,
-  name,
-  status,
-}) => (
-  <div className="card">
-    <form onSubmit={onSubmit}>
-      <h1>Profile Card</h1>
-      <label className="custom-file-upload fas">
-        <div className="img-wrap">
-          <img alt="Profile" src={src} />
-        </div>
-      </label>
-      <div className="name">{name}</div>
-      <div className="status">{status}</div>
-      <button type="submit" className="edit">Edit Profile</button>
-    </form>
-  </div>
-);
-
-const Edit = ({
-  onSubmit,
-  children,
-}) => (
-  <div className="card">
-    <form onSubmit={onSubmit}>
-      <h1>Profile Card</h1>
-      {children}
-      <button type="submit" className="save">Save</button>
-    </form>
-  </div>
-);
-
-class CardProfile extends React.Component {
-  state = {
-    file: '',
-    imagePreviewUrl: 'https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true',
-    name: '',
-    status: '',
-    active: 'edit'
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+        setShowConfirm(true);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
-  photoUpload = e => {
-    e.preventDefault();
-    const reader = new FileReader();
-    const file = e.target.files[0];
-    reader.onloadend = () => {
-      this.setState({
-        file,
-        imagePreviewUrl: reader.result
-      });
-    };
-    reader.readAsDataURL(file);
-  }
+  const handleConfirm = () => {
+    if (preview) {
+      localStorage.setItem('profilePhoto', preview);
+      onPhotoChange(preview);
+      setShowConfirm(false);
+    }
+  };
 
-  editName = e => {
-    const name = e.target.value;
-    this.setState({ name });
-  }
+  const handleCancel = () => {
+    setPreview(localStorage.getItem('profilePhoto') || null);
+    setShowConfirm(false);
+  };
 
-  editStatus = e => {
-    const status = e.target.value;
-    this.setState({ status });
-  }
-
-  handleSubmit = e => {
-    e.preventDefault();
-    let activeP = this.state.active === 'edit' ? 'profile' : 'edit';
-    this.setState({ active: activeP });
-  }
-
-  render() {
-    const { imagePreviewUrl, name, status, active } = this.state;
-    return (
-      <div>
-        {active === 'edit' ? (
-          <Edit onSubmit={this.handleSubmit}>
-            <ProfilePhoto onChange={this.photoUpload} src={imagePreviewUrl} />
-            <Name onChange={this.editName} value={name} />
-            <Status onChange={this.editStatus} value={status} />
-          </Edit>
+  return (
+    <div className="profile-photo-container">
+      <label htmlFor="photo-upload" className="photo-upload-label">
+        {preview ? (
+          <img src={preview} alt="Profile" className="photo-circle" />
         ) : (
-          <Profile
-            onSubmit={this.handleSubmit}
-            src={imagePreviewUrl}
-            name={name}
-            status={status}
-          />
+          <div className="photo-circle-placeholder">Upload Photo</div>
         )}
-      </div>
-    );
-  }
-}
+      </label>
+      <input
+        id="photo-upload"
+        type="file"
+        onChange={handleFileChange}
+        accept="image/*"
+        style={{ display: 'none' }}
+      />
+      {showConfirm && (
+        <div className="confirm-buttons">
+          <button onClick={handleConfirm} className="confirm-button">Confirm</button>
+          <button onClick={handleCancel} className="cancel-button">Cancel</button>
+        </div>
+      )}
+    </div>
+  );
+};
 
-export default CardProfile;
+export default ProfilePhoto;
