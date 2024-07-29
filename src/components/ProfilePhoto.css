@@ -1,8 +1,8 @@
 .profile-photo-container {
-    position: absolute;
+    position: fixed;
     top: 20px;
     left: 20px;
-    z-index: 1000; /* Ensure it's in the foreground */
+    z-index: 1000;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,6 +33,7 @@
     justify-content: center;
     color: #fff;
     font-size: 14px;
+    text-align: center;
   }
   
   .confirm-buttons {

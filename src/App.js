@@ -49,7 +49,9 @@ function App() {
   };
 
   const handleProfilePhotoChange = (photo) => {
+    console.log("Updating profile photo:", photo);
     setProfilePhoto(photo);
+    localStorage.setItem('profilePhoto', photo);
   };
 
   return (
