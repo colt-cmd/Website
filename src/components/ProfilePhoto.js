@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ProfilePhoto.css';
 
-const ImgUpload =({
+const ProfilePhoto =({
   onChange,
   src
 })=>
@@ -136,7 +136,7 @@ class CardProfile extends React.Component {
       <div>
         {(active === 'edit')?(
           <Edit onSubmit={this.handleSubmit}>
-            <ImgUpload onChange={this.photoUpload} src={imagePreviewUrl}/>
+            <ProfilePhoto onChange={this.photoUpload} src={imagePreviewUrl}/>
             <Name onChange={this.editName} value={name}/>
             <Status onChange={this.editStatus} value={status}/>
           </Edit>
@@ -151,3 +151,4 @@ class CardProfile extends React.Component {
     )
   }
 }
+export default ProfilePhoto;
